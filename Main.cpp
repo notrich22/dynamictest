@@ -1,10 +1,12 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
 #define tab "\t"
 
-void FillRand(int arr[], const int n);
-void FillRand(int** arr, const int m, const int n);
+void FillRand(double arr[], const int n);
+template<typename T>void FillRand(T arr[], const int n);
+void FillRand(double** arr, const int m, const int n);
+template<typename T>void FillRand(T** arr, const int m, const int n);
 
 template<typename T>void Print(T arr[], const int n);
 template<typename T>void Print(T** arr, const int m, const int n);
@@ -20,78 +22,81 @@ template<typename T>void pop_row_back(T**& arr, int& m, const int n);
 template<typename T>void pop_row_front(T**& arr, int& m, const int n);
 template<typename T>void erase_row(T**& arr, int& m, const int n, const int index);
 template<typename T>void push_col_back(T** arr, const int m, int& n);
-
+//#define DEBUG
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef DEBUG
 	int n;
-	cout << "Ââåäèòå ðàçìåð ìàññèâà: "; cin >> n;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¼Ð°ÑÑÐ¸Ð²Ð°: "; cin >> n;
 	int* arr = new int[n] {};
 	FillRand(arr, n);
 	Print(arr, n);
 	int value;
-	cout << "Ââåäèòå äîáàâëÿåìîå çíà÷åíèå: "; cin >> value;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: "; cin >> value;
 
 	push_back(arr, n, value);
 	Print(arr, n);
 
-	cout << "Ââåäèòå äîáàâëÿåìîå çíà÷åíèå: "; cin >> value;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: "; cin >> value;
 	push_front(arr, n, value);
 	Print(arr, n);
 
 	int index;
-	cout << "Ââåäèòå äîáàâëÿåìîå çíà÷åíèå: "; cin >> value;
-	cout << "Ââåäèòå èíäåêñ äîáàâëÿåìîãî ýëåìåíòà: "; cin >> index;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: "; cin >> value;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½Ð´ÐµÐºÑ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°: "; cin >> index;
 	insert(arr, n, value, index);
 	Print(arr, n);
 
-	cout << "Óäàëåíèå ïîñëåäíåãî ýëåìåíòà:\n";
+	cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°:\n";
 	pop_back(arr, n);
 	Print(arr, n);
-	cout << "Ââåäèòå èíäåêñ óäàâëÿåìîãî ýëåìåíòà: "; cin >> index;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½Ð´ÐµÐºÑ ÑƒÐ´Ð°Ð²Ð»ÑÐµÐ¼Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°: "; cin >> index;
 	erase(arr, n, index);
 	Print(arr, n);
 	delete[] arr;
+#endif // DEBUG
+
 	int m = 0;	
-	n = 0;
-	index = 0;
-	cout << "Ââåäèòå êîëè÷åñòâî ñòðîê: "; cin >> m;
-	cout << "Ââåäèòå êîëè÷åñòâî ýëåìåíòîâ ñòðîêè: "; cin >> n;
-	int** arr2 = new int* [m];
+	int n = 0;
+	int index = 0;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº: "; cin >> m;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² ÑÑ‚Ñ€Ð¾ÐºÐ¸: "; cin >> n;
+	double** arr2 = new double* [m];
 	for (int i = 0; i < m; i++)
 	{
-		arr2[i] = new int [n] {};
+		arr2[i] = new double [n] {};
 	}
 	FillRand(arr2, m, n);
 	Print(arr2, m, n);
-	cout << "Óäàëåíèå ñòðîêè ïî èíäåêñó: " << endl;
-	cout << "Ââåäèòå èíäåêñ: "; cin >> index;
+	cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð¿Ð¾ Ð¸Ð½Ð´ÐµÐºÑÑƒ: " << endl;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½Ð´ÐµÐºÑ: "; cin >> index;
 	erase_row(arr2, m, n, index);
 	Print(arr2, m, n);
-	cout << "Óäàëåíèå íóëåâîé ñòðîêè: " << endl;
+	cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð½ÑƒÐ»ÐµÐ²Ð¾Ð¹ ÑÑ‚Ñ€Ð¾ÐºÐ¸: " << endl;
 	pop_row_front(arr2, m, n);
 	Print(arr2, m, n);
-	cout << "Äîáàâëåíèå ñòðîêè ïî óêàçàííîìó èíäåêñó: " << endl;
-	cout << "Ââåäèòå èíäåêñ: "; cin >> index;
+	cout << "Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð¿Ð¾ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð¼Ñƒ Ð¸Ð½Ð´ÐµÐºÑÑƒ: " << endl;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½Ð´ÐµÐºÑ: "; cin >> index;
 	insert_row(arr2, m, n, index);
 	Print(arr2, m, n);
-	//cout << "Ïàìÿòü âûäåëåíà" << endl;
+	//cout << "ÐŸÐ°Ð¼ÑÑ‚ÑŒ Ð²Ñ‹Ð´ÐµÐ»ÐµÐ½Ð°" << endl;
 	system("PAUSE");
 
-	cout << "Äîáàâëåíèå ñòðîêè â êîíåö ìàññèâà:\n";
+	cout << "Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð² ÐºÐ¾Ð½ÐµÑ† Ð¼Ð°ÑÑÐ¸Ð²Ð°:\n";
 	push_row_back(arr2, m, n);
 	Print(arr2, m, n);
 
-	cout << "Äîáàâëåíèå ñòðîêè â íà÷àëî ìàññèâà:\n";
+	cout << "Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚Ñ€Ð¾ÐºÐ¸ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ð¼Ð°ÑÑÐ¸Ð²Ð°:\n";
 	push_row_front(arr2, m, n);
 	Print(arr2, m, n);
 
 
 
-	cout << "Äîáàâëåíèå ñòîëáöà â êîíåö:" << endl;
+	cout << "Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð° Ð² ÐºÐ¾Ð½ÐµÑ†:" << endl;
 	push_col_back(arr2, m, n);
 	Print(arr2, m, n);
-	//cout << "Ñòðîêà äîáàâëåíà" << endl;
+	//cout << "Ð¡Ñ‚Ñ€Ð¾ÐºÐ° Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°" << endl;
 	for (int i = 0; i < m; i++)
 	{
 		delete[] arr2[i];
@@ -99,14 +104,30 @@ void main()
 	delete[] arr2;
 }
 
-void FillRand(int arr[], const int n)
+void FillRand(double arr[], const int n) {
+	for (int i = 0; i < n; i++) {
+		arr[i] = rand() % 1000;
+		arr[i] /= 100;
+	}
+}
+void FillRand(double** arr, const int m, const int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			arr[i][j] = double(rand() % 10000) /100;
+		}
+	}
+}
+template<typename T>void FillRand(T arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
 		arr[i] = rand() % 100;
 	}
 }
-void FillRand(int** arr, const int m, const int n)
+template<typename T>void FillRand(T** arr, const int m, const int n)
 {
 	for (int i = 0; i < m; i++)
 	{
