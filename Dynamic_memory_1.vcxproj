@@ -139,10 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arrays1.cpp" />
+    <ClCompile Include="generalfunc.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="arrays2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FillRandr.h" />
+    <ClInclude Include="arrays1.h" />
+    <ClInclude Include="generalfunc.h" />
+    <ClInclude Include="arrays2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
