@@ -16,7 +16,7 @@ bool is_bin_number(char str[]);
 char* dec_to_bin(int decimal);
 int  bin_to_dec(char str[]);
 
-//#define STRING_DECLARATION //Объявление строк
+//#define STRING_DECLARATION
 #define CHECK_1
 //#define DECTOBIN
 //#define BINARY
