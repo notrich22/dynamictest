@@ -15,6 +15,8 @@ int  to_int_number(char str[]);
 bool is_bin_number(char str[]);
 char* dec_to_bin(int decimal);
 int  bin_to_dec(char str[]);
+bool is_hex_number(char str[]);
+int hex_to_dec(char hex[]);
 
 //#define STRING_DECLARATION //Объявление строк
 #define CHECK_1
@@ -27,12 +29,12 @@ void main()
 	//ASCII();
 	const int n = 256;
 	//char str[n] = "Аргентина манит негра";
-	cout << "Введите строку: ";
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+#ifdef CHECK_1
+	cout << "Введите строку: ";
 	char str[n];
 	cin.getline(str, n);
-#ifdef CHECK_1
 	cout <<"Длина строки: " << StringLength(str) << " символов" << endl;
 	to_upper(str);
 	cout << "Форматирование #1: " << str << endl;
@@ -43,6 +45,8 @@ void main()
 	cout << "Строка " << (is_palindrome(str) ? "" : " НЕ") << " является палиндромом" << endl;
 	cout << "Строка \"" << str << (is_int_number(str) ? "\"" : "\" НЕ") << " является целым числом" << endl;
 	cout << "Строка \"" << str << (is_bin_number(str) ? "\"" : "\" НЕ") << " является двоичным числом" << endl;
+	cout << "Строка \"" << str << (is_hex_number(str) ? "\"" : "\" НЕ") << " является шестнадцатеричным числом" << endl;
+	cout << str << " (hex) == " << hex_to_dec(str) << " (dec)";
 #endif // CHECK_1
 
 #ifdef DECTOBIN
@@ -207,29 +211,40 @@ bool is_bin_number(char str[])
 	}
 	return true;
 }
-
+void insert_spaces(char str[]) {
+	for (int i = 1, digit =0; str[i]; i++, digit++) {
+		if (digit % 4 == 0) {
+			for (int j = strlen(str); j > i; j--) {
+				str[j] = str[j - 1];
+			}
+			str[i] = ' ';
+		}
+		digit++;
+	}
+}
 char* dec_to_bin(int decimal) {
 	int capacity = 0;
 	int buffer = decimal;
-	for (; buffer > 0; capacity++)
+	for (; buffer; capacity++)
 	{
 		buffer /= 2;
 		if (capacity % 4 == 0)capacity++;
 	}
 	char* bin = new char[capacity + 1]{};
-	for (int i = 0; decimal; i++)
+	for (int i = 0, digit = 0; decimal; i++, digit++)
 	{
-		if (i % 4 == 0)
+		/*if (digit % 4 == 0)
 		{
 			bin[i] = ' ';
 		}
 		else
-		{
+		{*/
 			bin[i] = decimal % 2 + '0';
 			decimal /= 2;
-		}
-		return bin;
+		//}
 	}
+	insert_spaces(bin);
+	return bin;
 }
 
 int bin_to_dec(char str[]){
@@ -242,6 +257,27 @@ int bin_to_dec(char str[]){
 			decimal *= 2;
 			decimal += str[i] - '0';
 		}
+	}
+	return decimal;
+}
+bool is_hex_number(char str[]) {
+	for (int i = (str[0] == '0' && (str[1] == 'x' || str[1] == 'X')) ? 2 : 0; str[i]; i++) {
+		
+		if (!(str[i] >= '0' && str[i] <= '9')
+			&& !(str[i] >= 'A' && str[i] <= 'F')
+			&& !(str[i] >= 'a' && str[i] <= 'f'))
+			return false;
+
+	}
+}
+int hex_to_dec(char hex[]) {
+	if (!is_hex_number(hex))return 0;
+	int decimal = 0;
+	for (int i = 0; hex[i]; i++) {
+		decimal *= 16;
+		if(hex[i] >='0' && hex[i] <= '9') decimal += hex[i] - '0';
+		if (hex[i] >= 'A' && hex[i] <= 'F') decimal += hex[i] - 'A' + 10;
+		if (hex[i] >= 'a' && hex[i] <= 'f') decimal += hex[i] - 'a' + 10;
 	}
 	return decimal;
 }
