@@ -18,7 +18,7 @@ int  bin_to_dec(char str[]);
 bool is_hex_number(char str[]);
 int hex_to_dec(char hex[]);
 
-//#define STRING_DECLARATION //Объявление строк
+//#define STRING_DECLARATION
 #define CHECK_1
 //#define DECTOBIN
 //#define BINARY
