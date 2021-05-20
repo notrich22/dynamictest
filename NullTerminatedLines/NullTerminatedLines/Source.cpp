@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<Windows.h>
+#include<ctype.h>
 using namespace std;
 
 void ASCII();
@@ -76,8 +77,8 @@ void to_upper(char str[])
 {
 	for (int i = 0; str[i]; i++)
 	{
-		if (str[i] >= 'a' && str[i] <= 'z' ||str[i] >= 'а' && str[i] <= 'я')
-			str[i] -= ' ';
+		if (islower(str[i]))
+			toupper(str[i]);
 	}
 }
 
@@ -85,11 +86,8 @@ void to_lower(char str[])
 {
 	for (int i = 0; str[i]; i++)
 	{
-		if (
-			str[i] >= 'A' && str[i] <= 'Z' ||
-			str[i] >= 'А' && str[i] <= 'Я'
-			)
-			str[i] += 32;
+		if (isupper(str[i]))
+			tolower(str[i]);
 	}
 }
 
@@ -179,25 +177,15 @@ bool is_int_number(char str[])
 {
 	for (int i = 0; str[i]; i++)
 	{
-		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')return false;
-		if (str[i] == ' ' && str[i + 1] == ' ')return false;
+		if (!isdigit(int(str[i])))
+			return false;
 	}
 	return true;
 }
 
 int  to_int_number(char str[])
 {
-	if (!is_int_number(str))return 0;
-	int decimal = 0;
-	for (int i = 0; str[i]; i++)
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-		{
-			decimal *= 10;
-			decimal += str[i] - '0';
-		}
-	}
-	return decimal;
+	return atoi(str);
 }
 
 bool is_bin_number(char str[])
@@ -261,14 +249,12 @@ int bin_to_dec(char str[]){
 	return decimal;
 }
 bool is_hex_number(char str[]) {
-	for (int i = (str[0] == '0' && (str[1] == 'x' || str[1] == 'X')) ? 2 : 0; str[i]; i++) {
-		
-		if (!(str[i] >= '0' && str[i] <= '9')
-			&& !(str[i] >= 'A' && str[i] <= 'F')
-			&& !(str[i] >= 'a' && str[i] <= 'f'))
+	for (int i = 0; str[i]; i++)
+	{
+		if (!isxdigit(int(str[i])))
 			return false;
-
 	}
+	return true;
 }
 int hex_to_dec(char hex[]) {
 	if (!is_hex_number(hex))return 0;
